@@ -14,6 +14,10 @@ if (isProd) {
 
 (async () => {
   await app.whenReady();
+  
+  ipcMain.handle('startup', async (event, message) => {
+    return startUpHandler(message, mainWindow)
+  })
 
   const mainWindow = createWindow('main', {
     width: 1000,
@@ -30,9 +34,6 @@ if (isProd) {
   // ipcMain.on('startup', (event, message:string) => {
   //   startUpHandler(message, mainWindow)
   // })
-  ipcMain.handle('startup', async (event, message) => {
-    return startUpHandler(message, mainWindow)
-  })
 })();
 
 app.on('window-all-closed', () => {
